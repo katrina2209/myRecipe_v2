@@ -29,13 +29,14 @@ class FavoriteViewModel(
 
 
     fun onSaveButtonClicked(
-        title: String, category: String, steps: List<Step>, pictureUrl: String?
+        title: String, author: String, category: String, steps: String
     ) {
 
         if (title.isBlank()) return
         val recipe =
             currentRecipe.value?.copy(
                 title = title,
+                author = author,
                 category = category,
                 steps = steps,
 

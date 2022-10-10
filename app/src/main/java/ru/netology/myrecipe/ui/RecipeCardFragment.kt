@@ -63,12 +63,13 @@ class RecipeCardFragment : Fragment() {
 
 
         viewModel.navigateToRecipeContentScreenEvent.observe(viewLifecycleOwner) { recipe ->
-            val initialSteps: String? = Gson().toJson(recipe.steps)
+            //val initialSteps: String? = Gson().toJson(recipe.steps)
             val direction =
                 RecipeCardFragmentDirections.actionRecipeCardFragmentToRecipeContentFragment(
                     recipe.title,
+                    recipe.author,
                     recipe.category,
-                    initialSteps
+                    recipe.steps
                 )
             findNavController().navigate(direction)
         }

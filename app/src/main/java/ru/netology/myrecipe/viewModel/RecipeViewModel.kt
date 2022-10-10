@@ -4,14 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import ru.netology.myrecipe.adapter.RecipeInteractionListener
-import ru.netology.myrecipe.adapter.StepInteractionListener
 import ru.netology.myrecipe.data.*
 import ru.netology.myrecipe.db.AppDb
 import ru.netology.myrecipe.util.SingleLiveEvent
 
 class RecipeViewModel(
     application: Application
-) : AndroidViewModel(application), RecipeInteractionListener, StepInteractionListener {
+) : AndroidViewModel(application), RecipeInteractionListener {
 
     private val repository: RecipeRepository =
         RecipeRepositoryImpl(
@@ -23,16 +22,14 @@ class RecipeViewModel(
     val data get() = repository.data
 
     val currentRecipe = MutableLiveData<Recipe?>(null)
-    private val currentStep = MutableLiveData<Step?>(null)
 
     val navigateToRecipeContentScreenEvent = SingleLiveEvent<Recipe>()
     val navigateToRecipeCardFragmentEvent = SingleLiveEvent<Int>()
-    val stepEditScreenEvent = SingleLiveEvent<Step>()
-    val stepAddScreenEvent = SingleLiveEvent<String>()
+
 
 
     fun onSaveButtonClicked(
-        title: String, category: String, steps: List<Step?>
+        title: String, author: String, category: String, steps: String
     ) {
 
         if (title.isBlank()) return
@@ -49,7 +46,7 @@ class RecipeViewModel(
 
                 ) ?: Recipe(
                 id = RecipeRepository.NEW_RECIPE_ID,
-                author = "Me",
+                author = author,
                 title = title,
                 category = category,
                 steps = steps
@@ -59,25 +56,6 @@ class RecipeViewModel(
             )
         repository.save(recipe)
         currentRecipe.value = null
-    }
-
-    fun onSaveStepButtonClicked(text: String) {
-        if (text.isBlank()) return
-        val step = currentStep.value?.copy(
-            text = text,
-        ) ?: Step(
-            id = RecipeRepository.NEW_STEP_ID,
-            idRecipe = currentRecipe.value?.id ?: 0,
-            text = text,
-        )
-        repository.saveStep(step)
-        currentStep.value = null
-        currentRecipe.value = null
-    }
-
-    fun onAddStepClicked(recipe: Recipe) {
-        currentRecipe.value = recipe
-        stepAddScreenEvent.call()
     }
 
 
@@ -122,12 +100,5 @@ class RecipeViewModel(
 
     // endregion RecipeInteractionListener
 
-    override fun onRemoveStepClicked(step: Step) = repository.deleteStep(step)
-
-    override fun onEditStepClicked(step: Step) {
-        currentStep.value = step
-        stepEditScreenEvent.value = step
-    }
-
-}
+ }
 

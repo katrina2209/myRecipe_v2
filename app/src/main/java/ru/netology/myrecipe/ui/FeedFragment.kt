@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import ru.netology.myrecipe.R
 import ru.netology.myrecipe.adapter.RecipesAdapter
-import ru.netology.myrecipe.data.Step
+
 import ru.netology.myrecipe.databinding.FeedFragmentBinding
 
 import ru.netology.myrecipe.viewModel.RecipeViewModel
@@ -23,12 +23,12 @@ import ru.netology.myrecipe.viewModel.RecipeViewModel
 
 class FeedFragment : Fragment() {
 
-    private val gson = Gson()
+   // private val gson = Gson()
     private val viewModel: RecipeViewModel by activityViewModels()
-    private lateinit var recyclerViewAdapter: RecipesAdapter
+   // private lateinit var recyclerViewAdapter: RecipesAdapter
 
 
-    @RequiresApi(33)
+  //  @RequiresApi(33)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,17 +38,17 @@ class FeedFragment : Fragment() {
             if (requestKey != "requestKey") return@setFragmentResultListener
             val newRecipeTitle =
                 bundle.getString("newRecipeTitle") ?: return@setFragmentResultListener
+            val newRecipeAuthor =
+                bundle.getString("newRecipeAuthor") ?: return@setFragmentResultListener
             val newRecipeCategory =
-                bundle.getString("newRecipeCategory")
-            val newRecipeSteps = gson.fromJson(bundle.getString("newRecipeSteps"), Array<Step>::class.java) as List<Step>
-
-
+                bundle.getString("newRecipeCategory") ?: return@setFragmentResultListener
+            val newRecipeSteps = bundle.getString("newRecipeSteps") ?: return@setFragmentResultListener //gson.fromJson(bundle.getString("newRecipeSteps"), Array<Step>::class.java) as List<Step>
 
             viewModel.onSaveButtonClicked(
                 newRecipeTitle,
-                newRecipeCategory.orEmpty(),
+                newRecipeAuthor,
+                newRecipeCategory,
                 newRecipeSteps
-
             )
         }
     }
@@ -139,12 +139,13 @@ class FeedFragment : Fragment() {
 
 
         viewModel.navigateToRecipeContentScreenEvent.observe(viewLifecycleOwner) { recipe ->
-            val initialSteps: String? = gson.toJson(recipe.steps)
+
             val direction =
                 FeedFragmentDirections.actionFeedFragmentToRecipeContentFragment(
                     recipe.title,
+                    recipe.author,
                     recipe.category,
-                    initialSteps
+                    recipe.steps
                 )
             findNavController().navigate(direction)
         }

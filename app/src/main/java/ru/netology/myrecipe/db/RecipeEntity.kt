@@ -1,7 +1,7 @@
 package ru.netology.myrecipe.db
 
 import androidx.room.*
-import ru.netology.myrecipe.data.Step
+
 
 @Entity(tableName = "recipes")
 class RecipeEntity(
@@ -15,18 +15,9 @@ class RecipeEntity(
     val author: String,
     @ColumnInfo(name = "category")
     val category: String = "",
-//    @ColumnInfo(name = "steps")
-//    val steps: String = "",
+    @ColumnInfo(name = "steps")
+    val steps: String = "",
        @ColumnInfo(name = "favoriteForMe")
     val favoriteForMe: Boolean = false
     )
 
-class RecipeWithSteps(
-    @Embedded
-    val recipe: RecipeEntity,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "idRecipe"
-    )
-    val steps: List<StepEntity>
-)

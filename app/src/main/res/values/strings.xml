@@ -32,4 +32,7 @@
     <string name="add_step">Add step</string>
     <string name="clear_filters">Clear filters</string>
     <string name="step_text">Step text</string>
+    <string name="author_recipe">Recipe author *</string>
+    <string name="recipe">Recipe</string>
+    <string name="can_edit_step">Now you can edit this step</string>
 </resources>

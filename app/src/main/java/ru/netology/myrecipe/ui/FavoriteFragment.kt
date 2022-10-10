@@ -8,13 +8,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import ru.netology.myrecipe.adapter.RecipesAdapter
-import ru.netology.myrecipe.data.Step
 import ru.netology.myrecipe.databinding.FavoriteFragmentBinding
-
 import ru.netology.myrecipe.viewModel.FavoriteViewModel
 
 class FavoriteFragment : Fragment() {
@@ -33,16 +30,20 @@ class FavoriteFragment : Fragment() {
             if (requestKey != "requestKey") return@setFragmentResultListener
             val newRecipeTitle =
                 bundle.getString("newRecipeTitle") ?: return@setFragmentResultListener
+            val newRecipeAuthor =
+                bundle.getString("newRecipeAuthor") ?: return@setFragmentResultListener
             val newRecipeCategory =
-                bundle.getString("newRecipeCategory")
+                bundle.getString("newRecipeCategory") ?: return@setFragmentResultListener
+            val newRecipeSteps =
+                bundle.getString("newRecipeSteps") ?: return@setFragmentResultListener
             //val newRecipeSteps = bundle.getString("newRecipeSteps") //?.split("&")
-            val newPictureUrl = bundle.getString("newPictureUrl")
+
 
             viewModel.onSaveButtonClicked(
                 newRecipeTitle,
-                newRecipeCategory.orEmpty(),
-                emptyList(),//newRecipeSteps.orEmpty(), //.toMutableList(),
-                newPictureUrl
+                newRecipeAuthor,
+                newRecipeCategory,
+                newRecipeSteps
             )
         }
     }
@@ -79,8 +80,9 @@ class FavoriteFragment : Fragment() {
             val direction =
                 FavoriteFragmentDirections.actionFavoriteFragmentToRecipeContentFragment(
                     recipe.title,
+                    recipe.author,
                     recipe.category,
-                    Gson().toJson(recipe.steps)
+                    recipe.steps
                 )
             findNavController().navigate(direction)
         }

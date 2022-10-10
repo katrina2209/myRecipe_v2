@@ -9,7 +9,7 @@ data class Recipe(
     val title: String,
     val author: String,
     val category: String,
-    var steps: List<Step?>,
+    var steps: String,
     val favoriteForMe: Boolean = false
 )
 
@@ -21,13 +21,13 @@ data class Recipe(
 //    val newSteps: List<Step>
 //)
 
-
-@Serializable
-data class Step(
-    val id: Int,
-    val text: String?,
-    val idRecipe: Int
-): java.io.Serializable
+//
+//@Serializable
+//data class Step(
+//    val id: Int,
+//    val text: String?,
+//    val idRecipe: Int
+//): java.io.Serializable
 
 
 

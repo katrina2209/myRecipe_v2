@@ -61,6 +61,11 @@
             app:argType="string"
             app:nullable="true"/>
         <argument
+            android:name="initialAuthor"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true"/>
+        <argument
             android:name="initialCategory"
             android:defaultValue=""
             app:argType="string"
@@ -71,29 +76,15 @@
             app:argType="string"
             app:nullable="true"/>
 
+
         <action
-            android:id="@+id/action_recipeContentFragment_to_stepContentFragment"
-            app:destination="@id/step_content_fragment" />
+            android:id="@+id/action_recipe_content_fragment_to_feed_fragment"
+            app:destination="@id/feed_fragment" />
 
 
     </fragment>
 
-    <fragment
-        android:id="@+id/step_content_fragment"
-        android:name="ru.netology.myrecipe.ui.StepContentFragment"
-        android:label="@string/step_text"
-        tools:layout="@layout/step_content_fragment">
-        <argument
-            android:name="stepId"
-            android:defaultValue="0"
-            app:argType="integer" />
-        <argument
-            android:name="initialText"
-            android:defaultValue=""
-            app:argType="string"
-            app:nullable="true" />
 
-    </fragment>
 
     <fragment
         android:id="@+id/recipe_card_fragment"

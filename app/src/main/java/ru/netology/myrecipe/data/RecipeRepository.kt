@@ -27,9 +27,6 @@ interface RecipeRepository {
 
     fun clearFilters()
 
-    fun deleteStep(step: Step)
-
-    fun saveStep(step: Step)
 
 
     companion object {

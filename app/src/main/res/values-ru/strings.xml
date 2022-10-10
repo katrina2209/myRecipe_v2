@@ -8,7 +8,7 @@
     <string name="save_and_add">Сохранить шаг и добавить еще один</string>
     <string name="add_photo">Добавить фото</string>
     <string name="category_recipe">Категория рецепта</string>
-    <string name="steps_recipe">Шаги приготовления</string>
+    <string name="steps_recipe">Описание приготовления</string>
     <string name="step_photo">Фото шага</string>
     <string name="add_info_photo">Добавьте информацию и фотографии</string>
     <string name="recipe_content_fragment">Новый рецепт / Изменить рецепт</string>
@@ -32,4 +32,7 @@
     <string name="add_step">Добавить шаг</string>
     <string name="clear_filters">Очистить фильтры</string>
     <string name="step_text">Текст шага</string>
+    <string name="author_recipe">Автор рецепта *</string>
+    <string name="recipe">Рецептура</string>
+    <string name="can_edit_step">Теперь ты можешь отредактировать этот шаг</string>
 </resources>

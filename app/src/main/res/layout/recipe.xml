@@ -76,26 +76,26 @@
         app:constraint_referenced_ids="title, author, options, category, favorite" />
 
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/recipe_picture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/recipe_picture"
-        android:scaleType="centerInside"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
-        tools:ignore="ImageContrastCheck"
-        tools:src="@drawable/recipe_picture" />
+<!--    <androidx.appcompat.widget.AppCompatImageView-->
+<!--        android:id="@+id/recipe_picture"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:contentDescription="@string/recipe_picture"-->
+<!--        android:scaleType="centerInside"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/barrier"-->
+<!--        tools:ignore="ImageContrastCheck"-->
+<!--        tools:src="@drawable/recipe_picture" />-->
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/content"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:padding="16dp"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/recipe_picture"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/category"
         tools:text="Отварите картофель и морковь до мягкости, яйца сварите вкрутую. Нарежьте овощи, яйца, колбасу и огурцы кубиками, лук измельчите. Слейте жидкость из банки консервированного горошка. Смешайте все ингредиенты, посолите и заправьте майонезом." />
 
 

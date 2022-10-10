@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import ru.netology.myrecipe.db.RecipeDao
 import ru.netology.myrecipe.db.toEntity
-import ru.netology.myrecipe.db.toRecipe
+import ru.netology.myrecipe.db.toModel
+
 
 
 class RecipeRepositoryImpl(private val dao: RecipeDao) : RecipeRepository {
@@ -12,12 +13,12 @@ class RecipeRepositoryImpl(private val dao: RecipeDao) : RecipeRepository {
 
     override var data: LiveData<List<Recipe>> = dao.getAll().map { entities ->
         entities.map {
-            it.toRecipe()
+            it.toModel()
         }
     }
 
     override var dataFavorite = dao.getFavorite().map { entities ->
-        entities.map { it.toRecipe() }
+        entities.map { it.toModel() }
     }
 
     override fun getAll():
@@ -30,7 +31,8 @@ class RecipeRepositoryImpl(private val dao: RecipeDao) : RecipeRepository {
                 recipe.id,
                 recipe.title,
                 recipe.author,
-                recipe.category
+                recipe.category,
+                recipe.steps
             )
     }
 
@@ -46,42 +48,28 @@ class RecipeRepositoryImpl(private val dao: RecipeDao) : RecipeRepository {
 
     override fun searchDatabase(searchQuery: String) {
         data = dao.searchDatabase(searchQuery).map { entities ->
-            entities.map { it.toRecipe() }
+            entities.map { it.toModel() }
         }
     }
 
     override fun searchFavoriteDatabase(searchQuery: String) {
         dataFavorite = dao.searchFavoriteDatabase(searchQuery).map { entities ->
-            entities.map { it.toRecipe() }
+            entities.map { it.toModel() }
         }
     }
 
 
     override fun clearFilters() {
         data = dao.getAll().map { entities ->
-            entities.map { it.toRecipe() }
+            entities.map { it.toModel() }
         }
     }
 
-    override fun deleteStep(step: Step) {
-        dao.deleteStep(step.id)
-    }
-
-    override fun saveStep(step: Step) {
-        if (step.id == RecipeRepository.NEW_STEP_ID) step.toEntity()?.let { dao.insertStep(it) }
-        else step.text?.let {
-            dao.updateStep(
-                step.id,
-                it,
-                step.idRecipe
-            )
-        }
-    }
 
 
     override fun searchByCategory(categories: ArrayList<String>) {
         data = dao.searchByCategory(categories).map { entities ->
-            entities.map { it.toRecipe() }
+            entities.map { it.toModel() }
         }
     }
 
